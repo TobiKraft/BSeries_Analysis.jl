@@ -1,0 +1,13 @@
+name = "BSeries_Analysis"
+uuid = "e0e4bb4f-fa6d-44d9-bfd3-9fa18f5b6495"
+authors = ["Tobias Kraft"]
+version = "1.0.0-DEV"
+
+[compat]
+julia = "1.6.7"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
