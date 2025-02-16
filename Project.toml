@@ -3,6 +3,17 @@ uuid = "e0e4bb4f-fa6d-44d9-bfd3-9fa18f5b6495"
 authors = ["Tobias Kraft"]
 version = "1.0.0-DEV"
 
+[deps]
+BSeries = "ebb8d67c-85b4-416c-b05f-5f409e808f32"
+BenchmarkTools = "6e4b80f9-dd63-53aa-95a3-0cdb28fa8baf"
+Counters = "5a653867-b65e-5b16-a095-b1e26d522bbf"
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+OrderedCollections = "bac558e1-5e72-5ebc-8fee-abe8a469f55d"
+Revise = "295af30f-e4ad-537b-8983-00126c2a3abe"
+RootedTrees = "47965b36-3f3e-11e9-0dcf-4570dfd42a8c"
+RootedTrees_DataTypes = "c9d742e2-01a4-43cb-be6b-b47e1235f8fb"
+RootedTrees_SubtreeStructures = "7b566a30-4c79-4c4f-9d84-553ce278471f"
+
 [compat]
 julia = "1.6.7"
 
