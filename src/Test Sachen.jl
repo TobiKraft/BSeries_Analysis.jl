@@ -8,6 +8,13 @@ using RootedTrees_SubtreeStructures
 using BenchmarkTools
 tree_list=generateTrees_subtrees(6)[1]
 tree_list2=generateTrees_butcher(6)
-a=RootedTrees_SubtreeStructures.orderedSubtrees_and_Forests(tree_list[2],tree_list)
-display(a)
-series=TruncatedBSeries{Int,Int}()
+series=OrderedDict{Int,Rational}()
+#series[0]=1
+for t in tree_list
+    series[t.index]=exact_value(t,tree_list)
+end
+series2=series
+series3=BSeries_Analysis.compose(series,series,tree_list)
+for x in series3
+    print(x,"\n")
+end

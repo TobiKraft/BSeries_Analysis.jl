@@ -4,7 +4,9 @@ using Revise
 using Counters
 using LinearAlgebra: dot
 using RootedTrees_SubtreeStructures
-
+export TruncatedBSeries
+export exact_value
+export compose
 
 abstract type AbstractTimeIntegrationMethod end
 
@@ -79,14 +81,18 @@ end
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-struct TruncatedBSeries{T<:Union{Int,Vector{Any}},V} <:AbstractDict{T,V}
+struct TruncatedBSeries{T<:Union{Int,Vector{Any}},V}
     coef::OrderedDict{T,V}
-    TruncatedBSeries{T, V}() where {T, V} = TruncatedBSeries{T, V}(OrderedDict{T, V}())
+    
 end
-
-function compose(a::AbstractDict,b::AbstractDict,t::RootedTree_given_by_subtrees,tree_list::Array{RootedTree_given_by_subtrees})
+function exact_value(tree::RootedTree_given_by_subtrees,tree_list::Array{RootedTree_given_by_subtrees})
+    return 1//density(tree,tree_list)
+end
+TruncatedBSeries{T, V}() where {T, V} = TruncatedBSeries{T, V}(OrderedDict{T, V}())
+function compose(a,b,t::RootedTree_given_by_subtrees,tree_list::Array{RootedTree_given_by_subtrees})
     result = zero(first(values(a)) * first(values(b)))
     for (subtree,forest) in orderedSubtrees_and_Forests(t,tree_list)
+        print(subtree)
         tmp=b[subtree]
         for tree in forest 
             tmp*=a[tree]
@@ -96,16 +102,14 @@ function compose(a::AbstractDict,b::AbstractDict,t::RootedTree_given_by_subtrees
     return result
 end
 
-function exact_value(tree::RootedTree_given_by_subtrees,tree_list::Array{RootedTree_given_by_subtrees})
-    return 1/density(tree,tree_list)
-end
 
-function compose(a::TruncatedBSeries,b::TruncatedBSeries,tree_list::Array{RootedTree_given_by_subtrees}; normalize_stepsize=false)
-    series_keys = keys(b)
-    series = empty(b)
+function compose(a,b,tree_list::Array{RootedTree_given_by_subtrees}; normalize_stepsize=false)
+    series_keys = keys(a)
+    series = empty(a)
 
     for t in series_keys
-        coefficient = compose(b, a, t, tree_list)
+        print(t)
+        coefficient = compose(a,b,tree_list[t], tree_list)
         if normalize_stepsize
             coefficient /= 2^order(t)
         end
@@ -114,6 +118,7 @@ function compose(a::TruncatedBSeries,b::TruncatedBSeries,tree_list::Array{Rooted
 
     return series
 end
+
 
 function compose(a::AbstractDict,b::AbstractDict,t::Int,data::Data_given_by_ButcherProduct)
     result = zero(first(values(a)) * first(values(b)))
