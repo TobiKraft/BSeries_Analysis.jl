@@ -89,11 +89,19 @@ function exact_value(tree::RootedTree_given_by_subtrees,tree_list::Array{RootedT
     return 1//density(tree,tree_list)
 end
 TruncatedBSeries{T, V}() where {T, V} = TruncatedBSeries{T, V}(OrderedDict{T, V}())
+
+function compose(a,b,t::Vector{},tree_list::Array{RootedTree_given_by_subtrees})
+    print("EmptyTree\n")
+    return a[Int64[]]*b[Int64[]]
+end
 function compose(a,b,t::RootedTree_given_by_subtrees,tree_list::Array{RootedTree_given_by_subtrees})
     result = zero(first(values(a)) * first(values(b)))
-    for (subtree,forest) in orderedSubtrees_and_Forests(t,tree_list)
-        print(subtree)
-        tmp=b[subtree]
+    vector_subtrees_forests=orderedSubtrees_and_Forests(t,tree_list)
+    #catch the empty tree 
+    result+=b[Int64[]]*a[t.index]
+    for (subtree,forest) in vector_subtrees_forests[2:end]
+        #subtree is a vector containing one value
+        tmp=b[subtree[1]]
         for tree in forest 
             tmp*=a[tree]
         end
@@ -106,10 +114,8 @@ end
 function compose(a,b,tree_list::Array{RootedTree_given_by_subtrees}; normalize_stepsize=false)
     series_keys = keys(a)
     series = empty(a)
-
-    for t in series_keys
-        print(t)
-        coefficient = compose(a,b,tree_list[t], tree_list)
+    for t in series_keys        
+            coefficient = compose(a,b,tree_list[t], tree_list)
         if normalize_stepsize
             coefficient /= 2^order(t)
         end
@@ -118,7 +124,6 @@ function compose(a,b,tree_list::Array{RootedTree_given_by_subtrees}; normalize_s
 
     return series
 end
-
 
 function compose(a::AbstractDict,b::AbstractDict,t::Int,data::Data_given_by_ButcherProduct)
     result = zero(first(values(a)) * first(values(b)))
