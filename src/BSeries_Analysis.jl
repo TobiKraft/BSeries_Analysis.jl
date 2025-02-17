@@ -81,20 +81,46 @@ end
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-struct TruncatedBSeries{T<:Union{Int,Vector{Any}},V}
+struct TruncatedBSeries{T,V}
     coef::OrderedDict{T,V}
     
 end
+TruncatedBSeries{T, V}() where {T, V} = TruncatedBSeries{T, V}(OrderedDict{T, V}())
+
+# general interface methods of `AbstractDict` for `TruncatedBSeries`
+
+@inline function Base.getindex(series::TruncatedBSeries, t::Int)
+    getindex(series.coef, t)    
+end
+@inline function Base.getindex(series::TruncatedBSeries, t::Int64)
+    getindex(series.coef, t)
+    
+end
+@inline function Base.setindex!(series::TruncatedBSeries, val, t::Int)
+    setindex!(series.coef, val, t)
+end
+@inline function Base.setindex!(series::TruncatedBSeries, val, t::Int64)
+    setindex!(series.coef, val, t)
+end
+
+
+
 function exact_value(tree::RootedTree_given_by_subtrees,tree_list::Array{RootedTree_given_by_subtrees})
     return 1//density(tree,tree_list)
 end
-TruncatedBSeries{T, V}() where {T, V} = TruncatedBSeries{T, V}(OrderedDict{T, V}())
 
-function compose(a,b,t::Vector{},tree_list::Array{RootedTree_given_by_subtrees})
-    print("EmptyTree\n")
+function exact_value(index::Int,data::Data_given_by_ButcherProduct)
+    return 1//density(index,data)
+end
+
+function compose(a::TruncatedBSeries,b::TruncatedBSeries,t::Vector{},tree_list::Array{RootedTree_given_by_subtrees})
     return a[Int64[]]*b[Int64[]]
 end
-function compose(a,b,t::RootedTree_given_by_subtrees,tree_list::Array{RootedTree_given_by_subtrees})
+function compose(a::TruncatedBSeries,b::TruncatedBSeries,t::Vector{},data::Data_given_by_ButcherProduct)
+    return a[Int64[]]*b[Int64[]]
+end
+
+function compose(a::TruncatedBSeries,b::TruncatedBSeries,t::RootedTree_given_by_subtrees,tree_list::Array{RootedTree_given_by_subtrees})
     result = zero(first(values(a)) * first(values(b)))
     vector_subtrees_forests=orderedSubtrees_and_Forests(t,tree_list)
     #catch the empty tree 
@@ -111,7 +137,7 @@ function compose(a,b,t::RootedTree_given_by_subtrees,tree_list::Array{RootedTree
 end
 
 
-function compose(a,b,tree_list::Array{RootedTree_given_by_subtrees}; normalize_stepsize=false)
+function compose(a::TruncatedBSeries,b::TruncatedBSeries,tree_list::Array{RootedTree_given_by_subtrees}; normalize_stepsize=false)
     series_keys = keys(a)
     series = empty(a)
     for t in series_keys        
@@ -125,10 +151,13 @@ function compose(a,b,tree_list::Array{RootedTree_given_by_subtrees}; normalize_s
     return series
 end
 
-function compose(a::AbstractDict,b::AbstractDict,t::Int,data::Data_given_by_ButcherProduct)
+function compose(a::TruncatedBSeries,b::TruncatedBSeries,index::Int,data::Data_given_by_ButcherProduct)
     result = zero(first(values(a)) * first(values(b)))
-    for (subtree,forest) in orderedSubtrees_and_Forests(t,data)
-        tmp=b[subtree]
+    vector_subtrees_forests=orderedSubtrees_and_Forests(index,data)
+    #catch the empty tree 
+    result+=b[Int64[]]*a[index]
+    for (subtree,forest) in vector_subtrees_forests[2:end]
+        tmp=b[subtree[1]]
         for tree in forest 
             tmp*=a[tree]
         end
@@ -136,12 +165,13 @@ function compose(a::AbstractDict,b::AbstractDict,t::Int,data::Data_given_by_Butc
     end
     return result
 end
-function compose(a::TruncatedBSeries,b::TruncatedBSeries,data::Data_given_by_ButcherProduct ; normalize_stepsize=false)
-    series_keys = keys(b)
-    series = empty(b)   
 
-    for t in series_keys
-        coefficient = compose(b, a, t, data)
+function compose(a::TruncatedBSeries,b::TruncatedBSeries,data::Data_given_by_ButcherProduct; normalize_stepsize=false)
+   
+    series_keys = keys(a)
+    series = empty(a)
+    for t in series_keys      
+            coefficient = compose(a,b,t,data)
         if normalize_stepsize
             coefficient /= 2^order(t)
         end
@@ -150,4 +180,5 @@ function compose(a::TruncatedBSeries,b::TruncatedBSeries,data::Data_given_by_But
 
     return series
 end
+
 end
