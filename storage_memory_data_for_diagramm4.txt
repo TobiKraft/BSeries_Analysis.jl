@@ -1,0 +1,24 @@
+Normal:  368     Optimized:  312    Ratio:1.179
+
+Normal:  592     Optimized:  416    Ratio:1.423
+
+Normal:  1408     Optimized:  720    Ratio:1.956
+
+Normal:  4576     Optimized:  1712    Ratio:2.673
+
+Normal:  19096     Optimized:  5864    Ratio:3.256
+
+Normal:  84216     Optimized:  22344    Ratio:3.769
+
+Normal:  407160     Optimized:  99528    Ratio:4.091
+
+Normal:  2006432     Optimized:  462320    Ratio:4.34
+
+Normal:  10222640     Optimized:  2235520    Ratio:4.573
+
+Normal:  40890192     Optimized:  11123144    Ratio:3.676
+
+Normal:  235593168     Optimized:  56544440    Ratio:4.167
+
+Normal:  892292456     Optimized:  291069768    Ratio:3.066
+

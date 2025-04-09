@@ -1,0 +1,12 @@
+Normal:  368 bytes     Optimized:  312 bytes
+Normal:  592 bytes     Optimized:  416 bytes
+Normal:  1.375 KiB     Optimized:  720 bytes
+Normal:  4.469 KiB     Optimized:  1.672 KiB
+Normal:  18.648 KiB     Optimized:  5.727 KiB
+Normal:  82.242 KiB     Optimized:  21.820 KiB
+Normal:  397.617 KiB     Optimized:  97.195 KiB
+Normal:  1.913 MiB     Optimized:  451.484 KiB
+Normal:  9.749 MiB     Optimized:  2.132 MiB
+Normal:  44.003 MiB     Optimized:  10.608 MiB
+Normal:  185.429 MiB     Optimized:  53.925 MiB
+Normal:  233.484 MiB     Optimized:  277.586 MiB

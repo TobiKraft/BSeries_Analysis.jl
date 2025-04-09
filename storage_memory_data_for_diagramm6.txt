@@ -1,0 +1,20 @@
+Normal:  368 bytes     Optimized:  312 bytes    Ratio:
+
+Normal:  592 bytes     Optimized:  416 bytes    Ratio:
+
+Normal:  1.375 KiB     Optimized:  720 bytes    Ratio:
+
+Normal:  4.469 KiB     Optimized:  1.672 KiB    Ratio:
+
+Normal:  18.648 KiB     Optimized:  5.727 KiB    Ratio:
+
+Normal:  82.242 KiB     Optimized:  21.820 KiB    Ratio:
+
+Normal:  397.617 KiB     Optimized:  97.195 KiB    Ratio:
+
+Normal:  1.913 MiB     Optimized:  451.484 KiB    Ratio:
+
+Normal:  9.749 MiB     Optimized:  2.132 MiB    Ratio:
+
+Normal:  39.209 MiB     Optimized:  10.608 MiB    Ratio:
+
