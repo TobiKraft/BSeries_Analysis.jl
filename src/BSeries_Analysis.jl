@@ -172,7 +172,7 @@ end
 function compose(a,b,t::Vector{},tree_list::Array{RootedTree_given_by_subtrees})
     return a[Int64[]]*b[Int64[]]
 end
-function compose(a,b,t::Vector{},data::Data_given_by_ButcherProduct)
+function compose(a,b,t::Vector{},data::Data_given_by_CircProduct)
     return a[Int64[]]*b[Int64[]]
 end
 
