@@ -62,15 +62,15 @@ end
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-#                                                                           ButcherProduct
+#                                                                           CircProduct
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-function elementary_weight(index::Int,data::Data_given_by_ButcherProduct,rk::RungeKuttaMethod)
+function elementary_weight(index::Int,data::Data_given_by_CircProduct,rk::RungeKuttaMethod)
     dot(rk.b, derivative_weight(index,data,rk))
 end
 
-function derivative_weight(index::Int,data::Data_given_by_ButcherProduct,rk::RungeKuttaMethod) 
+function derivative_weight(index::Int,data::Data_given_by_CircProduct,rk::RungeKuttaMethod) 
     A = rk.A
     c = rk.c
 
