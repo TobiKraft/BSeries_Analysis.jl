@@ -78,9 +78,9 @@ end
     y(data::Data_BSeries)   ->  Vector{Int} representing a B-Series
 Returns the B-Series of the exact solution
 """
-function y(data::Data_BSeries)
-    yn=zeros(data.len)
-    yn[1]=1
+function y(data::Data_BSerie,V::Number=Int)
+    yn=zeros(V,data.len)
+    yn[1]=V(1)
     return yn
 end
 
@@ -88,9 +88,9 @@ end
     hf(data::Data_BSeries)  ->  Vector{Int} representing a B-Series
 Returns the B-Series of ``hf(y)``.
 """
-function hf(data::Data_BSeries)
-    f=zeros(data.len)
-    f[2]=1
+function hf(data::Data_BSeries,V::Number=Int)
+    f=zeros(V,data.len)
+    f[2]=V(1)
     return f
 end
 #--------------------------------------------------------------------------------
