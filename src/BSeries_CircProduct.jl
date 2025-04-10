@@ -109,7 +109,7 @@ function _lambda_compo(alpha::Dict{Int,Number},tree::Int,data::Data_BSeries)
     ans=Dict{Int,Number}
 end
 
-function compo_hf(alhpa,data::Data_BSeries)
+function compo_hf(alpha,data::Data_BSeries)
     ans=zeros(Rational{Int},data.len)
     ans[2]=1
     for tree in range(3,data.len)
