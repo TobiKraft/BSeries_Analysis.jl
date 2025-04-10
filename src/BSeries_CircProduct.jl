@@ -72,7 +72,7 @@ julia>exact(data)
 """
 function exact(data::Data_BSeries)
     ans=Vector{Rational{Int}}()
-    sizehint!(data,data.len)
+    sizehint!(ans,data.len)
     for i in range(1,data.len)
         push!(ans,1//RootedTrees_SubtreeStructures.density(i,data.circProduct_data))
     end
