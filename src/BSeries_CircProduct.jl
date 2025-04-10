@@ -17,8 +17,10 @@ using Counters
 
 export Data_BSeries
 export set_order
-export exact
+export exact, y, hf
+export compo_hf
 export _lambda_sub,substitution
+export modified_equation,modifying_integrator
 mutable struct Data_BSeries
     order_max::Int
     len::Int
