@@ -72,6 +72,25 @@ function exact(data::Data_BSeries)
     return [1//RootedTrees_SubtreeStructures.density(i,data.circProduct_data) for i in range(1,data.len)]
 end
 
+"""
+    y(data::Data_BSeries)   ->  Vector{Int} representing a B-Series
+Returns the B-Series of the exact solution
+"""
+function y(data::Data_BSeries)
+    yn=zeros(data.len)
+    yn[1]=1
+    return yn
+end
+
+"""
+    hf(data::Data_BSeries)  ->  Vector{Int} representing a B-Series
+Returns the B-Series of ``hf(y)``.
+"""
+function hf(data::Data_BSeries)
+    f=zeros(data.len)
+    f[2]=1
+    return f
+end
 #--------------------------------------------------------------------------------
 #                    Composition Rule
 #--------------------------------------------------------------------------------
@@ -86,9 +105,17 @@ function _lambda_compo(alpha::Dict{Int,Number},tree::Int,data::Data_BSeries)
     lambda_u=data.lambda_cache[u]
     lambda_v=data.lambda_cache[v]
     ans=Dict{Int,Number}
-
 end
 
+function compo_hf(alhpa,data::Data_BSeries)
+    ans=zeros(Rational{Int},data.len)
+    ans[2]=1
+    for tree in range(3,data.len)
+        (u,v)=decompose(tree,data.circProduct_data)
+        ans[tree]=alpha[v]*ans[u]
+    end
+    return ans
+end
 #--------------------------------------------------------------------------------
 #                    Composition Rule
 #--------------------------------------------------------------------------------

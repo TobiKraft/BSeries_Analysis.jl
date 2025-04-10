@@ -83,5 +83,11 @@ using OrderedCollections: OrderedDict
         @test data.circProduct_data==Data_given_by_CircProduct([(0,0),(2,0),(2,2),(3,2),(2,3),(4,2),(5,2),(2,4),(2,5)],4,[2,3,4,6,10])
         exact_series=exact(data)
         @test exact_series==[1//1,1//1,1//2,1//3,1//6,1//4,1//8,1//12,1//24]
+        @testset "Composition-Rule" begin
+            data=set_order(5)
+            alpha=exact(data)
+            beta=compo_hf(alpha,data)
+            @test beta==[0,1,1,1,1//2,1,1//2,1//3,1//6,1,1//2,1//3,1//6,1//4,1//4,1//8,1//12,1//24]
+        end
     end
 end
