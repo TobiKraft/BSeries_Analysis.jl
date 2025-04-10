@@ -194,7 +194,7 @@ end
 
 function modifying_integrator(a,data::Data_BSeries)
     ex_series=exact(data)
-    series=zeros(data.len)
+    series=zeros(Rational{Int},data.len)
     series[2]=a[2]
     l=lambda_sub()
     for t in range(3,data.len)
