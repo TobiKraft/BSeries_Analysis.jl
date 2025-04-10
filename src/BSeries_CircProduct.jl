@@ -71,7 +71,12 @@ julia>exact(data)
 ```
 """
 function exact(data::Data_BSeries)
-    return [1//RootedTrees_SubtreeStructures.density(i,data.circProduct_data) for i in range(1,data.len)]
+    ans=Vector{Rational{Int}}()
+    sizehint!(data,data.len)
+    for i in range(1,data.len)
+        push!(ans,1//RootedTrees_SubtreeStructures.density(i,data.circProduct_data))
+    end
+    return ans
 end
 
 """
@@ -176,6 +181,25 @@ function modified_equation(a::Vector{V},data::Data_BSeries) where {V<:Number}
     series=zeros(V,data.len)
     series[2]=a[2]
     l=_lambda_sub(data)
+    for t in range(3,data.len)
+        tmp=0
+        for (b_tree,list_forest) in pairs(l[t])
+            for forest in list_forest
+                k=1
+                for a_tree in forest
+                    k*=series[a_tree]
+                end
+                tmp+=k*ex_series[b_tree]
+            end
+        end
+        series[t]=a[t]-tmp
+    end
+    return series
+end
+function modified_equation(a::Vector{V},data::Data_BSeries,l::Vecotr{Dict{Int,Vector{Vector{Int}}}}) where {V<:Number}
+    ex_series=exact(data)
+    series=zeros(V,data.len)
+    series[2]=a[2]
     for t in range(3,data.len)
         tmp=0
         for (b_tree,list_forest) in pairs(l[t])
