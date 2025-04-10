@@ -28,7 +28,7 @@ julia>exact_value(tree_list[6],tree_list)
 ```       
 """
 function exact_value(tree::Union{Int,RootedTree_given_by_subtrees},tree_list::Array{RootedTree_given_by_subtrees})
-    return 1//density(tree,tree_list)
+    return 1//RootedTrees_SubtreeStructures.density(tree,tree_list)
 end
 
 """

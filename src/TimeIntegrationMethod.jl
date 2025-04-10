@@ -67,7 +67,7 @@ end
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 function elementary_weight(index::Int,data::Data_given_by_CircProduct,rk::RungeKuttaMethod)
-    dot(rk.b, derivative_weight(index,data,rk))
+    dot(rk.b, derivative_weight(index,data,rk)) 
 end
 
 function derivative_weight(index::Int,data::Data_given_by_CircProduct,rk::RungeKuttaMethod) 
