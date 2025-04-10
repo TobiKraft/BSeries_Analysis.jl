@@ -78,7 +78,7 @@ end
     y(data::Data_BSeries)   ->  Vector{Int} representing a B-Series
 Returns the B-Series of the exact solution
 """
-function y(data::Data_BSerie,V::Number=Int)
+function y(data::Data_BSeries,V::Number=Int)
     yn=zeros(V,data.len)
     yn[1]=V(1)
     return yn
