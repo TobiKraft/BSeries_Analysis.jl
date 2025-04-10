@@ -171,9 +171,9 @@ end
 #--------------------------------------------------------------------------------
 #                    Modifying Equation/Integrator
 #--------------------------------------------------------------------------------
-function modified_equation(a,data::Data_BSeries)
+function modified_equation(a::Vector{V},data::Data_BSeries) where {V<:Number}
     ex_series=exact(data)
-    series=zeros(data.len)
+    series=zeros(V,data.len)
     series[2]=a[2]
     l=_lambda_sub(data)
     for t in range(3,data.len)
