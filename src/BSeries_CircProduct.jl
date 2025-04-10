@@ -178,7 +178,7 @@ function modified_equation(a,data::Data_BSeries)
     l=_lambda_sub(data)
     for t in range(3,data.len)
         tmp=0
-        for (b_tree,list_forest) in paris(l[t])
+        for (b_tree,list_forest) in pairs(l[t])
             for forest in list_forest
                 k=1
                 for a_tree in forest
