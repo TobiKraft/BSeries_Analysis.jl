@@ -196,7 +196,7 @@ function modified_equation(a::Vector{V},data::Data_BSeries) where {V<:Number}
     end
     return series
 end
-function modified_equation(a::Vector{V},data::Data_BSeries,l::Vecotr{Dict{Int,Vector{Vector{Int}}}}) where {V<:Number}
+function modified_equation(a::Vector{V},data::Data_BSeries,l::Vector{Dict{Int,Vector{Vector{Int}}}}) where {V<:Number}
     ex_series=exact(data)
     series=zeros(V,data.len)
     series[2]=a[2]
