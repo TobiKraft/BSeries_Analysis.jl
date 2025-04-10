@@ -79,8 +79,8 @@ end
 Returns the B-Series of the exact solution
 """
 function y(data::Data_BSeries,::Type{T}=Int) where{T<:Number}
-    yn=zeros(A,data.len)
-    yn[1]=A(1)
+    yn=zeros(T,data.len)
+    yn[1]=T(1)
     return yn
 end
 
