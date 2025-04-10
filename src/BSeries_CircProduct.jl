@@ -165,6 +165,50 @@ function substitution(a::Union{Vector{Number},Dict{Int,Number}},b::Union{Vector{
     end
     return ans
 end
+
+#--------------------------------------------------------------------------------
+#                    Modifying Equation/Integrator
+#--------------------------------------------------------------------------------
+function modified_equation(a,data::Data_BSeries)
+    ex_series=exact(data)
+    series=zeros(data.len)
+    series[2]=a[2]
+    l=_lambda_sub(data)
+    for t in range(3,data_len)
+        tmp=0
+        for (b_tree,list_forest) in paris(l[t])
+            for forest in list_forest
+                k=1
+                for a_tree in forest
+                    k*=series[a_tree]
+                end
+                tmp+=k*ex_series[b_tree]
+            end
+        end
+        series[t]=a[t]-tmp
+    end
+    return series
+end
+
+function modifying_integrator(a,data::Data_BSeries)
+    ex_series=exact(data)
+    series=zeros(data.len)
+    series[2]=a[2]
+    l=lambda_sub()
+    for t in range(3,data.len)
+        tmp=0
+        for (b_tree,list_forest) in pairs(l[t])
+            for forest in list_forest
+                k=1
+                for a_tree in list_forest
+                    k*=series[a_tree]
+                end
+                tmp+=k*a[b_tree]
+            end
+        end
+        series[t]=ex_series[t]-tmp
+    end
+end
 #
 #function compo(alpha,beta,data)
 #    ans=zeros(data.len)
