@@ -226,6 +226,37 @@ function modified_equation(series::OrderedDict{Int,V},tree_list::Vector{RootedTr
     end
     return result
 end
+
+function modified_equation(series::OrderedDict{Int,V},tree_list::Vector{RootedTree_given_by_subtrees},partition_list::{Int,Vector{Tuple{Int,Tuple{Int,Int}}}}) where {V<:Number}
+    exact_series=empty(series)
+    result=empty(series)
+    exact_series[0]=one(V)
+    series_keys=keys(series)
+    result[0]=0
+    for index in Iterators.drop(series_keys,1)
+        exact_series[index]=convert(V,1//RootedTrees_SubtreeStructures.density(tree_list[index],tree_list))
+        result[index]=zero(V)
+    end
+    iter=iterate(series_keys)
+    if iter !==nothing
+        t, t_state = iter
+        if iszero(t)
+            iter = iterate(series_keys, t_state)
+            if iter !== nothing
+                t, t_state = iter
+            end
+        end
+        result[t] = series[t]
+        iter = iterate(series_keys, t_state)
+    end
+    while iter !==nothing
+        t, t_state = iter
+        result[t] += series[t] - substitute(result, exact_series, partition_list[t])
+        iter = iterate(series_keys, t_state)
+    end
+    return result
+end
+
 function modified_equation(rk::RungeKuttaMethod,tree_list,partition_list)
     series=series=OrderedDict{Int,Rational}()
     series[0]=1
