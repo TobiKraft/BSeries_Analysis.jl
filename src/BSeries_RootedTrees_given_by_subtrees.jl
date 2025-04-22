@@ -227,7 +227,7 @@ function modified_equation(series::OrderedDict{Int,V},tree_list::Vector{RootedTr
     return result
 end
 
-function modified_equation(series::OrderedDict{Int,V},tree_list::Vector{RootedTree_given_by_subtrees},partition_list::{Int,Vector{Tuple{Int,Tuple{Int,Int}}}}) where {V<:Number}
+function modified_equation(series::OrderedDict{Int,V},tree_list::Vector{RootedTree_given_by_subtrees},partition_list::OrderedDict{Int,Vector{Tuple{Int,Tuple{Int,Int}}}}) where {V<:Number}
     exact_series=empty(series)
     result=empty(series)
     exact_series[0]=one(V)
