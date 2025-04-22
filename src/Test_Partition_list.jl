@@ -12,7 +12,7 @@ using PProf
 function readablesize(x)
     Base.format_bytes(Base.summarysize(x))
 end
-i=10
+i=11
 size_storage=Vector{Vector{String}}()
 for n in range(1,i)
 println(n,":")
@@ -54,28 +54,23 @@ copy6=copy(exact_series)
 print("\n BSeries:")
 result= @time BSeries.substitute(bseries1,bseries2)
 print("\n Partition_Normal:")
-partition_list=@time RootedTrees_SubtreeStructures.substitution_partitions(tree_list,subtree_dict)
+partition_list=@time RootedTrees_SubtreeStructures.partitions(tree_list,subtree_dict)
 print("\n BSeries_Analysis_Partition_Normal ")
 result2=@time BSeries_Analysis.substitute(copy1,copy2,partition_list)
 print("\n Partition_Lower_Memory:")
 size_1=readablesize(partition_list)
-partition_list=@time RootedTrees_SubtreeStructures.substitution_partitions_lower_memory(tree_list,subtree_dict)
+partition_list=@time RootedTrees_SubtreeStructures.partitions_lower_memory(tree_list,subtree_dict)
 print("\n BSeries_Analysis_Partition_Memory_optimized: ")
 result3=@time BSeries_Analysis.substitute(copy3,copy4,partition_list,tree_list)
-print("\n Partition_Lower_Memory2:")
 size_2=readablesize(partition_list)
-partition_list=@time RootedTrees_SubtreeStructures.substitution_partitions_lower_memory2(tree_list,subtree_dict)
-print("\n BSeries_Analysis_Partition_Memory_optimized2: ")
-result4=@time BSeries_Analysis.substitute(copy5,copy6,partition_list,tree_list)
-size_3=readablesize(partition_list)
-push!(size_storage,[size_1,size_2,size_3])
-println("Normal: ",size_1,"  Optimized:", size_2,"  Optimized2:", size_3)
+push!(size_storage,[size_1,size_2])
+println("Normal: ",size_1,"  Optimized:", size_2)
 
 println("-----------------------------------")
 
 
 
-println("\n Result:"  ,sum(values(result)),"   ",sum(values(result2)),"   ",sum(values(result3)), "   ",sum(values(result4))) 
+println("\n Result:"  ,sum(values(result)),"   ",sum(values(result2)),"   ",sum(values(result3)))
 println("---------------------------------------------------------------------------------------------------------------------------------------")
 
 end

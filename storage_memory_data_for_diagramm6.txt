@@ -16,5 +16,7 @@ Normal:  1.913 MiB     Optimized:  451.484 KiB    Ratio:
 
 Normal:  9.749 MiB     Optimized:  2.132 MiB    Ratio:
 
-Normal:  39.209 MiB     Optimized:  10.608 MiB    Ratio:
+Normal:  34.233 MiB     Optimized:  10.608 MiB    Ratio:
+
+Normal:  216.870 MiB     Optimized:  53.925 MiB    Ratio:
 

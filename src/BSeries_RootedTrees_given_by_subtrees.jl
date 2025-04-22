@@ -4,8 +4,11 @@ using RootedTrees
 using OrderedCollections
 using Counters
 using LinearAlgebra: dot
-include("TimeIntegrationMethod.jl")
 
+export exact_value
+export bseries
+export substitute, substitute_threads,substitute_threads_spawn
+export modified_equation
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #                                                                           BSeries
